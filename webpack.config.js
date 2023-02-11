@@ -57,7 +57,7 @@ module.exports = (env, argv) => {
   return {
     context: path.resolve(__dirname, "src"),
     mode: "development",
-    entry: {main: ["@babel/polyfill", "./index.js"]},
+    entry: { main: ["@babel/polyfill", "./index.js"] },
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: filename("js"),

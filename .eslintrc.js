@@ -10,14 +10,20 @@ module.exports = {
     node: true,
     es6: true,
   },
-  extends: ["eslint:recommended", "google"],
+  extends: [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+  ],
   rules: {
     semi: "off",
     quotes: "off",
     "quote-props": "off",
     // "linebreak-style": "off",
     "spaced-comment": "off",
-    // "object-curly-spacing": "off",
+    "object-curly-spacing": "off",
     "require-jsdoc": "off",
   },
 };
