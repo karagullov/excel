@@ -50,6 +50,18 @@ class Dom {
   getCoords() {
     return this.$el.getBoundingClientRect();
   }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector);
+  }
+
+  css(styles = {}) {
+    console.log(styles);
+    console.log(this.$el.style);
+    for (let key in styles) {
+      this.$el.style[key] = styles[key];
+    }
+  }
 }
 
 export function $(selector) {
