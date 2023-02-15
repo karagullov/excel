@@ -21,7 +21,6 @@ module.exports = {
     semi: "off",
     quotes: "off",
     "quote-props": "off",
-    // "linebreak-style": "off",
     "spaced-comment": "off",
     "object-curly-spacing": "off",
     "require-jsdoc": "off",

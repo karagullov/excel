@@ -72,13 +72,14 @@
     opacity: 0;
 
     &:hover {
-      opacity: 1;
+      opacity: 1 !important;
     }
   }
 
   .col-resize {
     width: 4px;
     top: 0;
+    z-index: 1000;
 
     &:hover {
       cursor: col-resize;
@@ -88,6 +89,7 @@
   .row-resize {
     left: 0;
     height: 4px;
+    z-index: 1000;
 
     &:hover {
       cursor: row-resize;
