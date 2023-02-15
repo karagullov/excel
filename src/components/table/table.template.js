@@ -5,23 +5,34 @@ const CODES = {
 
 function toCell(content) {
   return `
-        <div class="cell" contenteditable>${content}</div>
+      <div class="cell" contenteditable>
+        ${content}
+      </div>
     `;
 }
 
 function toColumn(col) {
   return `
         <div class="column">
-            ${col}
+          ${col}
+          <div class="col-resize" data-resize="col"></div>
         </div>
     `;
 }
 
-function createRow(number, content) {
+function createRow(index, content) {
+  const resize = index
+    ? `<div class="row-resize" data-resize="row"></div>`
+    : "";
   return `
         <div class="row">
-            <div class="row-info">${number || ""}</div>
-            <div class="row-data">${content}</div>
+          <div class="row-info">
+            ${index || ""}
+            ${resize}
+          </div>
+          <div class="row-data">
+            ${content}
+          </div>
         </div>
     `;
 }
