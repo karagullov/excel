@@ -20,9 +20,5 @@ module.exports = {
   rules: {
     semi: "off",
     quotes: "off",
-    "quote-props": "off",
-    "spaced-comment": "off",
-    "object-curly-spacing": "off",
-    "require-jsdoc": "off",
   },
 };
