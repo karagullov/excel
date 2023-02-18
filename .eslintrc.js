@@ -10,13 +10,7 @@ module.exports = {
     node: true,
     es6: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:prettier/recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-  ],
+  extends: ["eslint:recommended", "plugin:prettier/recommended", "prettier"],
   rules: {
     semi: "off",
     quotes: "off",

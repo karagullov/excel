@@ -1,4 +1,5 @@
 /******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./components/excel/Excel.js":
@@ -7,12 +8,12 @@
   \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Excel": function() { return /* binding */ Excel; }
 /* harmony export */ });
 /* harmony import */ var _core_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/dom */ "./core/dom.js");
+/* harmony import */ var _core_Emitter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/Emitter */ "./core/Emitter.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
@@ -20,19 +21,24 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
+
 var Excel = /*#__PURE__*/function () {
   function Excel(selector, options) {
     _classCallCheck(this, Excel);
     this.$el = (0,_core_dom__WEBPACK_IMPORTED_MODULE_0__.$)(selector);
     this.components = options.components || [];
+    this.emitter = new _core_Emitter__WEBPACK_IMPORTED_MODULE_1__.Emitter();
   }
   _createClass(Excel, [{
     key: "getRoot",
     value: function getRoot() {
       var $root = _core_dom__WEBPACK_IMPORTED_MODULE_0__.$.create("div", "excel");
+      var componentOptions = {
+        emitter: this.emitter
+      };
       this.components = this.components.map(function (Component) {
         var $el = _core_dom__WEBPACK_IMPORTED_MODULE_0__.$.create("div", Component.className);
-        var component = new Component($el);
+        var component = new Component($el, componentOptions);
         $el.html(component.toHTML());
         $root.append($el);
         return component;
@@ -47,6 +53,13 @@ var Excel = /*#__PURE__*/function () {
         return component.init();
       });
     }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this.components.forEach(function (component) {
+        return component.destroy();
+      });
+    }
   }]);
   return Excel;
 }();
@@ -59,16 +72,20 @@ var Excel = /*#__PURE__*/function () {
   \***************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Formula": function() { return /* binding */ Formula; }
 /* harmony export */ });
-/* harmony import */ var _core_ExcelComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/ExcelComponent */ "./core/ExcelComponent.js");
+/* harmony import */ var _core_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/dom */ "./core/dom.js");
+/* harmony import */ var _core_ExcelComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../core/ExcelComponent */ "./core/ExcelComponent.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _get() { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get.bind(); } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return _get.apply(this, arguments); }
+function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
@@ -80,29 +97,55 @@ function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key i
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 
+
 var Formula = /*#__PURE__*/function (_ExcelComponent) {
   _inherits(Formula, _ExcelComponent);
   var _super = _createSuper(Formula);
-  function Formula($root) {
+  function Formula($root, options) {
+    var _this;
     _classCallCheck(this, Formula);
-    return _super.call(this, $root, {
+    _this = _super.call(this, $root, _objectSpread({
       name: "Formula",
-      listeners: ["input"]
-    });
+      listeners: ["input", "keydown"]
+    }, options));
+    _this.formulaText = "";
+    return _this;
   }
   _createClass(Formula, [{
     key: "toHTML",
     value: function toHTML() {
-      return "\n    <div class=\"info\">fx</div>\n    <div class=\"input\" contenteditable spellcheck=\"false\"></div>\n    ";
+      return "\n      <div class=\"info\">fx</div>\n      <div id=\"formula\" class=\"input\" contenteditable spellcheck=\"false\"></div>\n    ";
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      var _this2 = this;
+      _get(_getPrototypeOf(Formula.prototype), "init", this).call(this);
+      this.$folmula = this.$root.find("#formula");
+      this.$on("table:select", function (cell) {
+        _this2.$folmula.text(cell.text());
+      });
+      this.$on("table:input", function (cell) {
+        _this2.$folmula.text(cell.text());
+      });
     }
   }, {
     key: "onInput",
     value: function onInput(event) {
-      console.log("Formula", event.target.textContent.trim());
+      this.$emit("formula:input", (0,_core_dom__WEBPACK_IMPORTED_MODULE_0__.$)(event.target).text());
+    }
+  }, {
+    key: "onKeydown",
+    value: function onKeydown(event) {
+      var keys = ["Enter", "Tab"];
+      if (keys.includes(event.key)) {
+        event.preventDefault();
+        this.$emit("formula:done", event);
+      }
     }
   }]);
   return Formula;
-}(_core_ExcelComponent__WEBPACK_IMPORTED_MODULE_0__.ExcelComponent);
+}(_core_ExcelComponent__WEBPACK_IMPORTED_MODULE_1__.ExcelComponent);
 _defineProperty(Formula, "className", "excel__formula");
 
 /***/ }),
@@ -113,13 +156,14 @@ _defineProperty(Formula, "className", "excel__formula");
   \*************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Header": function() { return /* binding */ Header; }
 /* harmony export */ });
 /* harmony import */ var _core_ExcelComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/ExcelComponent */ "./core/ExcelComponent.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -137,9 +181,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 var Header = /*#__PURE__*/function (_ExcelComponent) {
   _inherits(Header, _ExcelComponent);
   var _super = _createSuper(Header);
-  function Header() {
+  function Header($root, options) {
     _classCallCheck(this, Header);
-    return _super.apply(this, arguments);
+    return _super.call(this, $root, _objectSpread({
+      name: "Header"
+    }, options));
   }
   _createClass(Header, [{
     key: "toHTML",
@@ -159,7 +205,6 @@ _defineProperty(Header, "className", "excel__header");
   \***********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Table": function() { return /* binding */ Table; }
@@ -170,7 +215,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _table_functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./table.functions */ "./components/table/table.functions.js");
 /* harmony import */ var _TableSelection__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TableSelection */ "./components/table/TableSelection.js");
 /* harmony import */ var _core_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../core/dom */ "./core/dom.js");
+/* harmony import */ var _utils_nextSelector__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../utils/nextSelector */ "./utils/nextSelector.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -192,14 +240,16 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 
 
 
+
 var Table = /*#__PURE__*/function (_ExcelComponent) {
   _inherits(Table, _ExcelComponent);
   var _super = _createSuper(Table);
-  function Table($root) {
+  function Table($root, options) {
     _classCallCheck(this, Table);
-    return _super.call(this, $root, {
-      listeners: ["mousedown"]
-    });
+    return _super.call(this, $root, _objectSpread({
+      name: "table",
+      listeners: ["mousedown", "keydown", "input"]
+    }, options));
   }
   _createClass(Table, [{
     key: "toHTML",
@@ -214,30 +264,56 @@ var Table = /*#__PURE__*/function (_ExcelComponent) {
   }, {
     key: "init",
     value: function init() {
+      var _this = this;
       _get(_getPrototypeOf(Table.prototype), "init", this).call(this);
-      var $cell = this.$root.find('[data-id="0:0"]');
+      this.selectCell(this.$root.find('[data-id="0:0"]'));
+      this.$on("formula:input", function (text) {
+        _this.selection.current.text(text);
+      });
+      this.$on("formula:done", function () {
+        _this.selection.current.focus();
+      });
+    }
+  }, {
+    key: "selectCell",
+    value: function selectCell($cell) {
       this.selection.select($cell);
+      this.$emit("table:select", $cell);
     }
   }, {
     key: "onMousedown",
     value: function onMousedown(event) {
-      var _this = this;
+      var _this2 = this;
       if ((0,_table_functions__WEBPACK_IMPORTED_MODULE_3__.shouldResize)(event)) {
         (0,_table_resize__WEBPACK_IMPORTED_MODULE_2__.resizeHandler)(this.$root, event);
       } else if ((0,_table_functions__WEBPACK_IMPORTED_MODULE_3__.isCell)(event)) {
         var $target = (0,_core_dom__WEBPACK_IMPORTED_MODULE_5__.$)(event.target);
         if (event.shiftKey) {
           var $cells = (0,_table_functions__WEBPACK_IMPORTED_MODULE_3__.matrix)($target, this.selection.current).map(function (id) {
-            return _this.$root.find("[data-id=\"".concat(id, "\"]"));
-          });
-          ids.map(function (id) {
-            return _this.$root.find("[data-id=\"".concat(id, "\"]"));
+            return _this2.$root.find("[data-id=\"".concat(id, "\"]"));
           });
           this.selection.selectGroup($cells);
         } else {
           this.selection.select($target);
         }
       }
+    }
+  }, {
+    key: "onKeydown",
+    value: function onKeydown(event) {
+      var keys = ["Enter", "Tab", "ArrowLeft", "ArrowRight", "ArrowDown", "ArrowUp"];
+      var key = event.key;
+      if (keys.includes(key) && !event.shiftKey) {
+        event.preventDefault();
+        var id = this.selection.current.id(true);
+        var $nextCell = this.$root.find((0,_utils_nextSelector__WEBPACK_IMPORTED_MODULE_6__.nextSelector)(key, id));
+        this.selectCell($nextCell);
+      }
+    }
+  }, {
+    key: "onInput",
+    value: function onInput(event) {
+      this.$emit("table:input", (0,_core_dom__WEBPACK_IMPORTED_MODULE_5__.$)(event.target));
     }
   }]);
   return Table;
@@ -252,7 +328,6 @@ _defineProperty(Table, "className", "excel__table");
   \********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "TableSelection": function() { return /* binding */ TableSelection; }
@@ -275,7 +350,7 @@ var TableSelection = /*#__PURE__*/function () {
     value: function select($el) {
       this.clear();
       this.group.push($el);
-      $el.addClass(TableSelection.className);
+      $el.focus().addClass(TableSelection.className);
       this.current = $el;
     }
   }, {
@@ -309,7 +384,6 @@ _defineProperty(TableSelection, "className", "selected");
   \*********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "isCell": function() { return /* binding */ isCell; },
@@ -317,7 +391,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "shouldResize": function() { return /* binding */ shouldResize; }
 /* harmony export */ });
 /* harmony import */ var _utils_range__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/range */ "./utils/range.js");
-/* harmony import */ var _utils_range__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_utils_range__WEBPACK_IMPORTED_MODULE_0__);
 
 function shouldResize(event) {
   return event.target.dataset.resize;
@@ -328,8 +401,6 @@ function isCell(event) {
 function matrix($target, $current) {
   var target = $target.id(true);
   var current = $current.id(true);
-  console.log(current);
-  console.log(target);
   var cols = (0,_utils_range__WEBPACK_IMPORTED_MODULE_0__.range)(current.col, target.col);
   var rows = (0,_utils_range__WEBPACK_IMPORTED_MODULE_0__.range)(current.row, target.row);
   return cols.reduce(function (acc, col) {
@@ -348,7 +419,6 @@ function matrix($target, $current) {
   \******************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "resizeHandler": function() { return /* binding */ resizeHandler; }
@@ -418,7 +488,6 @@ function resizeHandler($root, event) {
   \********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "createTable": function() { return /* binding */ createTable; }
@@ -429,15 +498,15 @@ var CODES = {
 };
 function toCell(row) {
   return function (_, col) {
-    return "\n    <div class=\"cell\" contenteditable \n    data-col=".concat(col, " \n    data-type=\"cell\"\n    data-id=").concat(row, ":").concat(col, ">\n    </div>\n    ");
+    return "\n      <div class=\"cell\" contenteditable \n        data-col=".concat(col, " \n        data-type=\"cell\"\n        data-id=").concat(row, ":").concat(col, ">\n      </div>\n    ");
   };
 }
 function toColumn(col, index) {
-  return "\n        <div class=\"column\" data-type=\"resizable\" data-col=".concat(index, ">\n          ").concat(col, "\n          <div class=\"col-resize\" data-resize=\"col\"></div>\n        </div>\n    ");
+  return "\n    <div class=\"column\" data-type=\"resizable\" data-col=".concat(index, ">\n      ").concat(col, "\n      <div class=\"col-resize\" data-resize=\"col\"></div>\n    </div>\n    ");
 }
 function createRow(index, content) {
   var resize = index ? "<div class=\"row-resize\" data-resize=\"row\"></div>" : "";
-  return "\n        <div class=\"row\" data-type=\"resizable\">\n          <div class=\"row-info\">\n            ".concat(index || "", "\n            ").concat(resize, "\n          </div>\n          <div class=\"row-data\">\n            ").concat(content, "\n          </div>\n        </div>\n    ");
+  return "\n    <div class=\"row\" data-type=\"resizable\">\n      <div class=\"row-info\">\n        ".concat(index || "", "\n        ").concat(resize, "\n      </div>\n      <div class=\"row-data\">\n        ").concat(content, "\n      </div>\n    </div>\n    ");
 }
 function toChar(_, index) {
   return String.fromCharCode(CODES.A + index);
@@ -463,13 +532,14 @@ function createTable() {
   \***************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Toolbar": function() { return /* binding */ Toolbar; }
 /* harmony export */ });
 /* harmony import */ var _core_ExcelComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/ExcelComponent */ "./core/ExcelComponent.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -487,12 +557,12 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 var Toolbar = /*#__PURE__*/function (_ExcelComponent) {
   _inherits(Toolbar, _ExcelComponent);
   var _super = _createSuper(Toolbar);
-  function Toolbar($root) {
+  function Toolbar($root, options) {
     _classCallCheck(this, Toolbar);
-    return _super.call(this, $root, {
+    return _super.call(this, $root, _objectSpread({
       name: "Toolbar",
       listeners: ["click"]
-    });
+    }, options));
   }
   _createClass(Toolbar, [{
     key: "onClick",
@@ -517,7 +587,6 @@ _defineProperty(Toolbar, "className", "excel__toolbar");
   \*****************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "DomListener": function() { return /* binding */ DomListener; }
@@ -573,13 +642,65 @@ function getMethodName(eventName) {
 
 /***/ }),
 
+/***/ "./core/Emitter.js":
+/*!*************************!*\
+  !*** ./core/Emitter.js ***!
+  \*************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Emitter": function() { return /* binding */ Emitter; }
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var Emitter = /*#__PURE__*/function () {
+  function Emitter() {
+    _classCallCheck(this, Emitter);
+    this.listeners = {};
+  }
+  _createClass(Emitter, [{
+    key: "emit",
+    value: function emit(eventName) {
+      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+      if (!Array.isArray(this.listeners[eventName])) {
+        return false;
+      }
+      this.listeners[eventName].forEach(function (listener) {
+        listener.apply(void 0, args);
+      });
+      return true;
+    }
+  }, {
+    key: "subscribe",
+    value: function subscribe(eventName, fn) {
+      var _this = this;
+      this.listeners[eventName] = this.listeners[eventName] || [];
+      this.listeners[eventName].push(fn);
+      return function () {
+        _this.listeners[eventName] = _this.listeners[eventName].filter(function (listener) {
+          return listener !== fn;
+        });
+      };
+    }
+  }]);
+  return Emitter;
+}();
+
+/***/ }),
+
 /***/ "./core/ExcelComponent.js":
 /*!********************************!*\
   !*** ./core/ExcelComponent.js ***!
   \********************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "ExcelComponent": function() { return /* binding */ ExcelComponent; }
@@ -607,9 +728,13 @@ var ExcelComponent = /*#__PURE__*/function (_DomListener) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     _classCallCheck(this, ExcelComponent);
     _this = _super.call(this, $root, options.listeners);
+    _this.emitter = options.emitter;
+    _this.unsubcribers = [];
     _this.prepare();
     return _this;
   }
+
+  //Настраиваем наш компонент до init
   _createClass(ExcelComponent, [{
     key: "prepare",
     value: function prepare() {}
@@ -618,15 +743,43 @@ var ExcelComponent = /*#__PURE__*/function (_DomListener) {
     value: function toHTML() {
       return "";
     }
+
+    //Увеомляем слушателей про событие event
+  }, {
+    key: "$emit",
+    value: function $emit(eventName) {
+      var _this$emitter;
+      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+      (_this$emitter = this.emitter).emit.apply(_this$emitter, [eventName].concat(args));
+    }
+
+    //Подписываемся на событие event
+  }, {
+    key: "$on",
+    value: function $on(eventName, fn) {
+      var unsub = this.emitter.subscribe(eventName, fn);
+      this.unsubcribers.push(unsub);
+    }
+
+    //Инициализируем компонент
+    //Добавляем DOM слушателей
   }, {
     key: "init",
     value: function init() {
       this.initDOMListeners();
     }
+
+    //Удалякм компонент
+    //Чистим слушатели
   }, {
     key: "destroy",
     value: function destroy() {
       this.removeDOMListeners();
+      this.unsubcribers.forEach(function (unsub) {
+        return unsub();
+      });
     }
   }]);
   return ExcelComponent;
@@ -640,7 +793,6 @@ var ExcelComponent = /*#__PURE__*/function (_DomListener) {
   \*********************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "$": function() { return /* binding */ $; }
@@ -664,6 +816,19 @@ var Dom = /*#__PURE__*/function () {
         return this;
       }
       return this.$el.outerHTML.trim();
+    }
+  }, {
+    key: "text",
+    value: function text(_text) {
+      if (typeof _text === "string") {
+        this.$el.textContent = _text;
+        return this;
+      }
+      if (this.$el.tagName.toLowerCase() === "input") {
+        return this.$el.value.trim();
+      } else {
+        return this.$el.textContent.trim();
+      }
     }
   }, {
     key: "clear",
@@ -741,6 +906,12 @@ var Dom = /*#__PURE__*/function () {
       return this.data.id;
     }
   }, {
+    key: "focus",
+    value: function focus() {
+      this.$el.focus();
+      return this;
+    }
+  }, {
     key: "addClass",
     value: function addClass(className) {
       this.$el.classList.add(className);
@@ -773,7 +944,6 @@ $.create = function (tagName) {
   \******************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_excel_Excel__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/excel/Excel */ "./components/excel/Excel.js");
 /* harmony import */ var _components_formula_Formula__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/formula/Formula */ "./components/formula/Formula.js");
@@ -800,7 +970,6 @@ excel.render();
   \*****************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "capitalize": function() { return /* binding */ capitalize; }
@@ -814,12 +983,51 @@ function capitalize(string) {
 
 /***/ }),
 
+/***/ "./utils/nextSelector.js":
+/*!*******************************!*\
+  !*** ./utils/nextSelector.js ***!
+  \*******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "nextSelector": function() { return /* binding */ nextSelector; }
+/* harmony export */ });
+function nextSelector(key, _ref) {
+  var col = _ref.col,
+    row = _ref.row;
+  var MIN_VALUE = 0;
+  switch (key) {
+    case "Enter":
+    case "ArrowDown":
+      row++;
+      break;
+    case "Tab":
+    case "ArrowRight":
+      col++;
+      break;
+    case "ArrowLeft":
+      col = col - 1 < MIN_VALUE ? MIN_VALUE : col - 1;
+      break;
+    case "ArrowUp":
+      row = row - 1 < MIN_VALUE ? MIN_VALUE : row - 1;
+      break;
+  }
+  return "[data-id=\"".concat(row, ":").concat(col, "\"]");
+}
+
+/***/ }),
+
 /***/ "./utils/range.js":
 /*!************************!*\
   !*** ./utils/range.js ***!
   \************************/
-/***/ (function() {
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "range": function() { return /* binding */ range; }
+/* harmony export */ });
 function range(start, end) {
   if (start > end) {
     var _ref = [start, end];
@@ -839,7 +1047,6 @@ function range(start, end) {
   \*************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
@@ -907,18 +1114,6 @@ __webpack_require__.r(__webpack_exports__);
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
-/******/ 		};
-/******/ 	}();
-/******/ 	
-/******/ 	/* webpack/runtime/compat get default export */
-/******/ 	!function() {
-/******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = function(module) {
-/******/ 			var getter = module && module.__esModule ?
-/******/ 				function() { return module['default']; } :
-/******/ 				function() { return module; };
-/******/ 			__webpack_require__.d(getter, { a: getter });
-/******/ 			return getter;
 /******/ 		};
 /******/ 	}();
 /******/ 	
