@@ -85,7 +85,7 @@ export function createTable(rowsCount = 15, state = {}) {
   const cols = new Array(colsCount)
     .fill("")
     .map(toChar)
-    .map(withWidthFrom(state))
+    .map(withWidthFrom(state.colState))
     .map(toColumn)
     .join("");
 
