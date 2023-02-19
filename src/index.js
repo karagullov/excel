@@ -9,7 +9,7 @@ import { rootReducer } from "./store/rootReducer";
 import { storage } from "./utils/storage";
 
 const store = createStore(rootReducer, storage("excel-state"));
-
+console.log(store.getState());
 store.subscribe((state) => {
   console.log("App state", state);
   storage("excel-state", state);
