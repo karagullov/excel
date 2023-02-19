@@ -29,8 +29,12 @@ export class Formula extends ExcelComponent {
       this.$folmula.text(cell.text());
     });
 
-    this.$on("table:input", (cell) => {
-      this.$folmula.text(cell.text());
+    // this.$on("table:input", (cell) => {
+    //   this.$folmula.text(cell.text());
+    // });
+
+    this.$subscribe((state) => {
+      this.$folmula.text(state.currentText);
     });
   }
 
