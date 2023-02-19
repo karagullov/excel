@@ -4,10 +4,10 @@ import { Header } from "./components/header/Header";
 import { Table } from "./components/table/Table";
 import { Toolbar } from "./components/toolbar/Toolbar";
 import { createStore } from "./core/createStore";
-import "./scss/index.scss";
 import { initialState } from "./store/initialState";
 import { rootReducer } from "./store/rootReducer";
 import { storage } from "./utils/storage";
+import "./scss/index.scss";
 
 const store = createStore(rootReducer, initialState);
 

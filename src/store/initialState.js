@@ -1,8 +1,10 @@
-import { storage } from "../utils/storage";
+  import { storage } from "../utils/storage";
 
-const defaultState = {
-  rowState: {},
-  colState: {},
-};
+  const defaultState = {
+    rowState: {},
+    colState: {},
+    dataState: {},
+    currentText: "",
+  };
 
-export const initialState = storage("excel-state") ?? defaultState;
+  export const initialState = storage("excel-state") ?? defaultState;
