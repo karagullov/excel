@@ -5,13 +5,13 @@ import { Table } from "./components/table/Table";
 import { Toolbar } from "./components/toolbar/Toolbar";
 import { createStore } from "./core/createStore";
 import "./scss/index.scss";
+import { initialState } from "./store/initialState";
 import { rootReducer } from "./store/rootReducer";
 import { storage } from "./utils/storage";
 
-const store = createStore(rootReducer, storage("excel-state"));
-console.log(store.getState());
+const store = createStore(rootReducer, initialState);
+
 store.subscribe((state) => {
-  console.log("App state", state);
   storage("excel-state", state);
 });
 

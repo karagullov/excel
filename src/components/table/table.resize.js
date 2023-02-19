@@ -2,7 +2,6 @@ import { $ } from "../../core/dom";
 
 export function resizeHandler($root, event) {
   return new Promise((resolve) => {
-    console.log(event);
     const $resizer = $(event.target);
 
     const $parent = $resizer.closest('[data-type="resizable"]');
@@ -43,7 +42,8 @@ export function resizeHandler($root, event) {
 
       resolve({
         size,
-        id: type === "col" ? $parent.data.col : null,
+        type,
+        id: $parent.data[type],
       });
 
       $resizer.css({

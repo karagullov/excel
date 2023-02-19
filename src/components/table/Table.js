@@ -5,7 +5,6 @@ import { isCell, matrix, shouldResize } from "./table.functions";
 import { TableSelection } from "./TableSelection";
 import { $ } from "../../core/dom";
 import { nextSelector } from "../../utils/nextSelector";
-import { TABLE_RESIZE } from "../../store/types";
 import * as actions from "../../store/actions";
 
 export class Table extends ExcelComponent {
