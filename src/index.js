@@ -8,7 +8,7 @@ import "./scss/index.scss";
 import { rootReducer } from "./store/rootReducer";
 
 const store = createStore(rootReducer, {
-  tableTitle: "My tabe title",
+  colState: {},
 });
 
 const excel = new Excel("#app", {
