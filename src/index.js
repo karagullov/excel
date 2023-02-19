@@ -6,9 +6,13 @@ import { Toolbar } from "./components/toolbar/Toolbar";
 import { createStore } from "./core/createStore";
 import "./scss/index.scss";
 import { rootReducer } from "./store/rootReducer";
+import { storage } from "./utils/storage";
 
-const store = createStore(rootReducer, {
-  colState: {},
+const store = createStore(rootReducer, storage("excel-state"));
+
+store.subscribe((state) => {
+  console.log("App state", state);
+  storage("excel-state", state);
 });
 
 const excel = new Excel("#app", {
