@@ -14,5 +14,6 @@ module.exports = {
   rules: {
     semi: "off",
     quotes: "off",
+    "prettier/prettier": "prettier/prettier",
   },
 };
