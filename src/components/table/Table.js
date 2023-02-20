@@ -6,6 +6,7 @@ import { TableSelection } from "./TableSelection";
 import { $ } from "../../core/dom";
 import { nextSelector } from "../../utils/nextSelector";
 import * as actions from "../../store/actions";
+import { defaultStyles } from "../../constants";
 
 export class Table extends ExcelComponent {
   static className = "excel__table";
@@ -38,11 +39,16 @@ export class Table extends ExcelComponent {
     this.$on("formula:done", () => {
       this.selection.current.focus();
     });
+
+    this.$on("toolbar:applyStyle", (style) => {
+      this.selection.applyStyle(style);
+    });
   }
 
   selectCell($cell) {
     this.selection.select($cell);
     this.$emit("table:select", $cell);
+    console.log($cell.getStyles(Object.keys(defaultStyles)));
   }
 
   async resizeTable(event) {
