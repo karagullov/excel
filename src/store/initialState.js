@@ -1,10 +1,12 @@
-  import { storage } from "../utils/storage";
+import { defaultStyles } from "../constants";
+import { storage } from "../utils/storage";
 
-  const defaultState = {
-    rowState: {},
-    colState: {},
-    dataState: {},
-    currentText: "",
-  };
+const defaultState = {
+  rowState: {},
+  colState: {},
+  dataState: {},
+  currentText: "",
+  currentStyles: defaultStyles,
+};
 
-  export const initialState = storage("excel-state") ?? defaultState;
+export const initialState = storage("excel-state") ?? defaultState;

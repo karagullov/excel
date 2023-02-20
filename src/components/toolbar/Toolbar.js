@@ -9,6 +9,7 @@ export class Toolbar extends ExcelStateComponent {
     super($root, {
       name: "Toolbar",
       listeners: ["click"],
+      subscribe: ["currentStyles"],
       ...options,
     });
   }
@@ -25,13 +26,15 @@ export class Toolbar extends ExcelStateComponent {
     return this.template;
   }
 
+  storeChanged({ currentStyles }) {
+    this.setState(currentStyles);
+  }
+
   onClick(event) {
     const $target = $(event.target);
     if ($target.data.type === "button") {
       const style = JSON.parse($target.data.value);
-
       this.$emit("toolbar:applyStyle", style);
-      this.setState(style);
     }
   }
 }
