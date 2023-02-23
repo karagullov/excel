@@ -41,7 +41,7 @@ export function resizeHandler($root, event) {
       }
 
       resolve({
-        size,
+        value: size,
         type,
         id: $parent.data[type],
       });
