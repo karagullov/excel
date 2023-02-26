@@ -1,5 +1,4 @@
-import { defaultStyles } from "../../constants";
-import { camelToDashCase } from "../../utils/camelToDashCase";
+import { toInlineStyles } from "../../utils/toInlineStyles";
 
 const CODES = {
   A: 65,
@@ -20,9 +19,7 @@ function getHeight(state, index) {
 function toCell(state, row) {
   return function (_, col) {
     const id = `${row}:${col}`;
-    const styles = Object.keys(defaultStyles)
-      .map((key) => `${camelToDashCase(key)}:${defaultStyles[key]}`)
-      .join(";");
+    const styles = toInlineStyles(state.stylesState[id]);
     return `
       <div class="cell" contenteditable 
         data-col=${col} 
