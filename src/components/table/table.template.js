@@ -1,3 +1,4 @@
+import { defaultStyles } from "../../constants";
 import { toInlineStyles } from "../../utils/toInlineStyles";
 
 const CODES = {
@@ -19,7 +20,10 @@ function getHeight(state, index) {
 function toCell(state, row) {
   return function (_, col) {
     const id = `${row}:${col}`;
-    const styles = toInlineStyles(state.stylesState[id]);
+    const styles = toInlineStyles({
+      ...defaultStyles,
+      ...state.stylesState[id],
+    });
     return `
       <div class="cell" contenteditable 
         data-col=${col} 

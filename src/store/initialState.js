@@ -1,4 +1,4 @@
-import { defaultStyles } from "../constants";
+import { defaultStyles, defaultTitle } from "../constants";
 import { storage } from "../utils/storage";
 
 const defaultState = {
@@ -7,6 +7,7 @@ const defaultState = {
   dataState: {},
   stylesState: {},
   currentText: "",
+  title: defaultTitle,
   currentStyles: defaultStyles,
 };
 

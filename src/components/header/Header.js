@@ -1,4 +1,6 @@
+import { defaultTitle } from "../../constants";
 import { ExcelComponent } from "../../core/ExcelComponent";
+import * as actions from "../../store/actions";
 
 export class Header extends ExcelComponent {
   static className = "excel__header";
@@ -6,13 +8,17 @@ export class Header extends ExcelComponent {
   constructor($root, options) {
     super($root, {
       name: "Header",
+      listeners: ["input"],
+      subscribe: ["tableName"],
       ...options,
     });
   }
 
   toHTML() {
+    const title = this.store.getState().title || defaultTitle;
+
     return `
-    <input type="text" class="input" value="Новая таблица" />
+    <input id="table-name-input" type="text" class="input" value=${title} />
 
     <div>
       <div class="button">
@@ -23,5 +29,18 @@ export class Header extends ExcelComponent {
       </div>
     </div>
     `;
+  }
+
+  init() {
+    super.init();
+    this.$tableNameInput = this.$root.find("#table-name-input");
+  }
+
+  storeChanged({ tableName }) {
+    this.$tableNameInput.text(tableName);
+  }
+
+  onInput(e) {
+    this.$dispatch(actions.changeTitle(e.target.value));
   }
 }
