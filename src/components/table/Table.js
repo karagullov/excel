@@ -21,7 +21,6 @@ export class Table extends ExcelComponent {
   }
 
   toHTML() {
-    console.log(this.store.getState());
     return createTable(20, this.store.getState());
   }
 
@@ -34,8 +33,6 @@ export class Table extends ExcelComponent {
     this.selectCell(this.$root.find('[data-id="0:0"]'));
 
     this.$on("formula:input", (value) => {
-      console.log("table", value);
-
       this.selection.current.attr("data-value", value).text(parse(value));
       this.updateTextInSTore(value);
     });
