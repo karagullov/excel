@@ -1,6 +1,7 @@
 import { defaultTitle } from "../../constants";
 import { ExcelComponent } from "../../core/ExcelComponent";
 import * as actions from "../../store/actions";
+import { debounce } from "../../utils/debaunce";
 
 export class Header extends ExcelComponent {
   static className = "excel__header";
@@ -34,6 +35,10 @@ export class Header extends ExcelComponent {
   init() {
     super.init();
     this.$tableNameInput = this.$root.find("#table-name-input");
+  }
+
+  prepare() {
+    this.onInput = debounce(this.onInput, 300);
   }
 
   storeChanged({ tableName }) {
