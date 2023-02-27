@@ -11,6 +11,7 @@ const DEFAULT_WIDTH = 120;
 const DEFAULT_HEIGHT = 24;
 
 function getWidth(state, index) {
+  console.log(state);
   return (state[index] ?? DEFAULT_WIDTH) + "px";
 }
 
@@ -25,6 +26,8 @@ function toCell(state, row) {
       ...defaultStyles,
       ...state.stylesState[id],
     });
+    console.log("state", state);
+    console.log("template", state.dataState[id]);
     return `
       <div class="cell" contenteditable 
         data-col=${col} 
@@ -78,6 +81,7 @@ function toChar(_, index) {
 }
 
 function withWidthFrom(state) {
+  console.log(state);
   return function (col, index) {
     return {
       col,
@@ -90,7 +94,7 @@ function withWidthFrom(state) {
 export function createTable(rowsCount = 15, state = {}) {
   const colsCount = CODES.Z - CODES.A + 1;
   const rows = [];
-
+  console.log("state", state);
   const cols = new Array(colsCount)
     .fill("")
     .map(toChar)
