@@ -1,4 +1,5 @@
 import { defaultStyles, defaultTitle } from "../constants";
+import { clone } from "../utils/clone";
 import { storage } from "../utils/storage";
 
 const defaultState = {
@@ -18,5 +19,5 @@ const normalize = (state) => ({
 });
 
 export function normalizeInitialState(state) {
-  return state ? normalize(storage(state)) : defaultState;
+  return state ? normalize(state) : clone(defaultState);
 }

@@ -27,8 +27,6 @@ export class Router {
       this.page.destroy();
     }
     this.$placeholder.clear();
-    console.log(this.routes.pages);
-    console.log(window.location);
 
     let Page = null;
 

@@ -11,14 +11,13 @@ import { debounce } from "../../utils/debaunce";
 import { Page } from "../../core/Page";
 
 function storageName(param) {
-  return "excel" + param;
+  return "excel:" + param;
 }
 
 export class ExcelPage extends Page {
   getRoot() {
     const params = this.params ? this.params : Date.now().toString();
-
-    const state = storage(storageName(params), state);
+    const state = storage(storageName(params));
     const store = createStore(rootReducer, normalizeInitialState(state));
 
     const stateListener = debounce((state) => {
