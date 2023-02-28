@@ -29,9 +29,19 @@ export class Router {
     this.$placeholder.clear();
     console.log(this.routes.pages);
     console.log(window.location);
-    const Page = ActiveRoute.path.includes("excel")
-      ? this.routes.excel
-      : this.routes.dashboard;
+
+    let Page = null;
+
+    this.routes.pages.forEach((el) => {
+      if (ActiveRoute.path.includes(el.path)) {
+        Page = el.page;
+      }
+    });
+
+    if (!Page) {
+      Page = this.routes.pages[0].page;
+      window.location.hash = `#${this.routes.pages[0].path}`;
+    }
 
     this.page = new Page(ActiveRoute.param);
 

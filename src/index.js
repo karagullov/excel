@@ -7,7 +7,7 @@ new Router("#app", {
   dashboard: DashboardPage,
   excel: ExcelPage,
   pages: [
-    { page: DashboardPage, path: "/dashboard" },
-    { page: ExcelPage, path: "/excel" },
+    { page: DashboardPage, path: "dashboard" },
+    { page: ExcelPage, path: "excel" },
   ],
 });
