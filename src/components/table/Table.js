@@ -7,7 +7,7 @@ import { $ } from "../../core/dom";
 import { nextSelector } from "../../utils/nextSelector";
 import * as actions from "../../store/actions";
 import { defaultStyles } from "../../constants";
-import { parse } from "../../core/parse";
+import { parse } from "../../utils/parse";
 
 export class Table extends ExcelComponent {
   static className = "excel__table";

@@ -9,18 +9,21 @@ import { rootReducer } from "./store/rootReducer";
 import { storage } from "./utils/storage";
 import "./scss/index.scss";
 import { debounce } from "./utils/debaunce";
+import { Router } from "./core/routes/Router";
 
-const store = createStore(rootReducer, initialState);
+new Router("#app", {});
 
-const stateListener = debounce((state) => {
-  storage("excel-state", state);
-}, 300);
+// const store = createStore(rootReducer, initialState);
 
-store.subscribe(stateListener);
+// const stateListener = debounce((state) => {
+//   storage("excel-state", state);
+// }, 300);
 
-const excel = new Excel("#app", {
-  components: [Header, Toolbar, Formula, Table],
-  store,
-});
+// store.subscribe(stateListener);
 
-excel.render();
+// const excel = new Excel("#app", {
+//   components: [Header, Toolbar, Formula, Table],
+//   store,
+// });
+
+// excel.render();
