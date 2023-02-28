@@ -17,6 +17,6 @@ const normalize = (state) => ({
   currentText: "",
 });
 
-export const initialState = storage("excel-state")
-  ? normalize(storage("excel-state"))
-  : defaultState;
+export function normalizeInitialState(state) {
+  return state ? normalize(storage(state)) : defaultState;
+}
