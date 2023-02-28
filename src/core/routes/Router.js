@@ -21,10 +21,13 @@ export class Router {
   }
 
   changePageHandler(event) {
-    console.log(ActiveRoute.path);
-    console.log(ActiveRoute.param);
-
-    this.$placeholder.html(`<h1>${ActiveRoute.path}</h1>`);
+    ActiveRoute.path.includes("excel")
+      ? this.routes.excel
+      : this.routes.dashboard;
+    const Page = this.routes.excel;
+    const page = new Page();
+    this.$placeholder.append(page.getRoot());
+    page.afterRender();
   }
 
   destroy() {
