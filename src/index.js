@@ -6,4 +6,8 @@ import { ExcelPage } from "./pages/ExcelPage";
 new Router("#app", {
   dashboard: DashboardPage,
   excel: ExcelPage,
+  pages: [
+    { page: DashboardPage, path: "/dashboard" },
+    { page: ExcelPage, path: "/excel" },
+  ],
 });
