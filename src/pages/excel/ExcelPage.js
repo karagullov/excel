@@ -16,7 +16,8 @@ function storageName(param) {
 
 export class ExcelPage extends Page {
   getRoot() {
-    const params = this.params ? this.params : Date.now().toString();
+    let params = this.params ? this.params : Date.now().toString();
+
     const state = storage(storageName(params));
     const store = createStore(rootReducer, normalizeInitialState(state));
 

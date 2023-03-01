@@ -4,6 +4,7 @@ import {
   CHANGE_TEXT,
   CHANGE_TITLE,
   TABLE_RESIZE,
+  UPDATE_OPENED_DATE,
 } from "./types";
 
 export function rootReducer(state, action) {
@@ -35,6 +36,8 @@ export function rootReducer(state, action) {
       };
     case CHANGE_TITLE:
       return { ...state, title: action.data };
+    case UPDATE_OPENED_DATE:
+      return { ...state, openedDate: new Date().toJSON() };
     default:
       return state;
   }

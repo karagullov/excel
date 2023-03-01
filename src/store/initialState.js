@@ -6,9 +6,10 @@ const defaultState = {
   colState: {},
   dataState: {},
   stylesState: {},
-  currentText: "",
   title: defaultTitle,
   currentStyles: defaultStyles,
+  currentText: "",
+  openedDate: new Date().toJSON(),
 };
 
 const normalize = (state) => ({
