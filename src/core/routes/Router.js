@@ -22,7 +22,7 @@ export class Router {
     this.changePageHandler();
   }
 
-  changePageHandler(event) {
+  changePageHandler() {
     if (this.page) {
       this.page.destroy();
     }

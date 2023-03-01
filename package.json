@@ -7,15 +7,17 @@
     "dev": "cross-env NODE_ENV=development webpack",
     "build": "cross-env NODE_ENV=production webpack",
     "start": "cross-env NODE_ENV=development webpack serve",
-    "eslint-fix": "eslint --fix src",
-    "watch": "webpack --watch"
+    "lint": "npx eslint ./src",
+    "lint-fix": "eslint --fix src",
+    "watch": "cross-env NODE_ENV=development webpack --watch"
   },
   "keywords": [
     "js",
     "webpack",
     "scss",
     "eslint",
-    "git"
+    "git",
+    "excel"
   ],
   "author": "erlan",
   "browserslist": "> 0.25%, not dead",
@@ -26,8 +28,7 @@
     "cross-env": "^7.0.3",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "normalize.css": "^8.0.1",
-    "prettier": "^2.8.4"
+    "normalize.css": "^8.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
@@ -48,6 +49,7 @@
     "terser-webpack-plugin": "^5.3.6",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "webpack-dev-server": "^4.11.1",
+    "prettier": "^2.8.4"
   }
 }

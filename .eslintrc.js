@@ -10,10 +10,11 @@ module.exports = {
     node: true,
     es6: true,
   },
-  extends: ["eslint:recommended", "plugin:prettier/recommended", "prettier"],
+  plugins: ["prettier"],
+  extends: ["eslint:recommended", "plugin:prettier/recommended"],
   rules: {
     semi: "off",
     quotes: "off",
-    "prettier/prettier": "prettier/prettier",
+    "prettier/prettier": "off",
   },
 };

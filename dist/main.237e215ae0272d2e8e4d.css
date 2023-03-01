@@ -430,7 +430,7 @@ template {
   font-size: 18px;
 }
 .excel__toolbar .button:active, .excel__toolbar .button.active {
-  color: green;
+  color: rgb(50, 199, 50);
 }
 .excel__toolbar .button:hover {
   background-color: #eee;
