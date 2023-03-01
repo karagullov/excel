@@ -2,6 +2,8 @@ import { defaultTitle } from "../../constants";
 import { ExcelComponent } from "../../core/ExcelComponent";
 import * as actions from "../../store/actions";
 import { debounce } from "../../utils/debaunce";
+import { $ } from "../../core/dom";
+import { ActiveRoute } from "../../core/routes/ActiveRoute";
 
 export class Header extends ExcelComponent {
   static className = "excel__header";
@@ -9,7 +11,7 @@ export class Header extends ExcelComponent {
   constructor($root, options) {
     super($root, {
       name: "Header",
-      listeners: ["input"],
+      listeners: ["input", "click"],
       subscribe: ["tableName"],
       ...options,
     });
@@ -17,16 +19,15 @@ export class Header extends ExcelComponent {
 
   toHTML() {
     const title = this.store.getState().title || defaultTitle;
-
     return `
-    <input id="table-name-input" type="text" class="input" value=${title} />
+    <input id="table-name-input" type="text" class="input" value="${title}" />
 
     <div>
-      <div class="button">
-        <span class="material-icons"> delete </span>
+      <div class="button" data-button="delete">
+        <span class="material-icons" data-button="delete"> delete </span>
       </div>
-      <div class="button">
-        <span class="material-icons"> exit_to_app </span>
+      <div class="button" data-button="exit">
+        <span class="material-icons" data-button="exit"> exit_to_app </span>
       </div>
     </div>
     `;
@@ -47,5 +48,23 @@ export class Header extends ExcelComponent {
 
   onInput(e) {
     this.$dispatch(actions.changeTitle(e.target.value));
+  }
+
+  onClick(e) {
+    const target = $(e.target);
+    if (!target.data.button) return;
+
+    if (target.data.button === "delete") {
+      const desision = confirm("Are you sure you want to delete this table?");
+
+      if (desision) {
+        localStorage.removeItem("excel:" + ActiveRoute.param);
+        ActiveRoute.navigate("dashboard");
+      }
+    }
+
+    if (target.data.button === "exit") {
+      ActiveRoute.navigate("dashboard");
+    }
   }
 }
