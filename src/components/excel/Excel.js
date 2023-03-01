@@ -2,6 +2,7 @@ import { $ } from "../../core/dom";
 import { Emitter } from "../../core/Emitter";
 import { StoreSubscriber } from "../../core/StoreSubscriber";
 import { updateOpenedDate } from "../../store/actions";
+import { preventDefault } from "../../utils/preventDefault";
 
 export class Excel {
   constructor(options) {
@@ -30,12 +31,17 @@ export class Excel {
   }
 
   init() {
+    if (process.env.NODE_ENV === "production") {
+      document.addEventListener("contextmenu", preventDefault);
+    }
+
     this.store.dispatch(updateOpenedDate());
     this.subscriber.subscribeComponents(this.components);
     this.components.forEach((component) => component.init());
   }
 
   destroy() {
+    document.removeEventListener("contextmenu", preventDefault);
     this.subscriber.unsubscribeFromStore();
     this.components.forEach((component) => component.destroy());
   }
