@@ -1,6 +1,5 @@
 import { defaultStyles, defaultTitle } from "../constants";
 import { clone } from "../utils/clone";
-import { storage } from "../utils/storage";
 
 const defaultState = {
   rowState: {},
