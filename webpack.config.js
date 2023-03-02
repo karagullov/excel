@@ -26,7 +26,7 @@ const plugins = () => {
       patterns: [
         {
           from: path.resolve(__dirname, "src", "favicon.ico"),
-          to: path.resolve(__dirname, "dist"),
+          to: path.resolve(__dirname, "build"),
         },
       ],
     }),
@@ -63,7 +63,7 @@ module.exports = {
   mode: "development",
   entry: { main: ["@babel/polyfill", "./index.js"] },
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "build"),
     filename: filename("js"),
     clean: true,
   },
