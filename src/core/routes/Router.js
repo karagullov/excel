@@ -1,4 +1,4 @@
-import { $ } from "../dom";
+import { $ } from "../dom/dom";
 import { ActiveRoute } from "./ActiveRoute";
 
 export class Router {

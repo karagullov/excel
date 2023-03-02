@@ -1,8 +1,8 @@
 import { defaultTitle } from "../../constants";
-import { ExcelComponent } from "../../core/ExcelComponent";
+import { ExcelComponent } from "../../core/excel/ExcelComponent";
 import * as actions from "../../store/actions";
-import { debounce } from "../../utils/debaunce";
-import { $ } from "../../core/dom";
+import { debounce } from "../../core/utils/debaunce";
+import { $ } from "../../core/dom/dom";
 import { ActiveRoute } from "../../core/routes/ActiveRoute";
 
 export class Header extends ExcelComponent {
