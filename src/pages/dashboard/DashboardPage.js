@@ -1,5 +1,5 @@
 import { $ } from "../../core/dom/dom";
-import { Page } from "../../core/routes/Page";
+import { Page } from "../../core/page/Page";
 import { createRecordsTable } from "./dashboard.functions";
 
 export class DashboardPage extends Page {
