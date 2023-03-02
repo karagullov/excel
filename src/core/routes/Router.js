@@ -7,6 +7,10 @@ export class Router {
       throw new Error("Selector is not provided in Router");
     }
 
+    if (!routes.pages.length) {
+      throw new Error("Pages is not provided in Router");
+    }
+
     this.$placeholder = $(selector);
     this.routes = routes;
 

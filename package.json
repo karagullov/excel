@@ -34,9 +34,10 @@
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.12",
+    "@babel/core": "^7.21.0",
     "@babel/eslint-parser": "^7.19.1",
     "@babel/preset-env": "^7.20.2",
+    "babel-jest": "^29.4.3",
     "babel-loader": "^9.1.2",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
@@ -46,6 +47,7 @@
     "eslint-webpack-plugin": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^29.4.3",
+    "jest-environment-jsdom": "^29.4.3",
     "mini-css-extract-plugin": "^2.7.2",
     "node-sass": "^8.0.0",
     "prettier": "^2.8.4",
