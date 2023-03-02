@@ -1,6 +1,6 @@
 import { defaultStyles } from "../../constants";
-import { parse } from "../../utils/parse";
-import { toInlineStyles } from "../../utils/toInlineStyles";
+import { parse } from "../../core/utils/parse";
+import { toInlineStyles } from "../../core/utils/toInlineStyles";
 
 const CODES = {
   A: 65,

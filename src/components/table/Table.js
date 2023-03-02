@@ -1,13 +1,13 @@
-import { ExcelComponent } from "../../core/ExcelComponent";
+import { ExcelComponent } from "../../core/excel/ExcelComponent";
 import { createTable } from "./table.template";
 import { resizeHandler } from "./table.resize";
 import { isCell, matrix, shouldResize } from "./table.functions";
 import { TableSelection } from "./TableSelection";
-import { $ } from "../../core/dom";
-import { nextSelector } from "../../utils/nextSelector";
+import { $ } from "../../core/dom/dom";
+import { nextSelector } from "../../core/utils/nextSelector";
 import * as actions from "../../store/actions";
 import { defaultStyles } from "../../constants";
-import { parse } from "../../utils/parse";
+import { parse } from "../../core/utils/parse";
 
 export class Table extends ExcelComponent {
   static className = "excel__table";

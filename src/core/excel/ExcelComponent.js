@@ -1,4 +1,4 @@
-import { DomListener } from "./DomListener";
+import { DomListener } from "../dom/DomListener";
 
 export class ExcelComponent extends DomListener {
   constructor($root, options = {}) {

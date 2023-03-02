@@ -1,5 +1,5 @@
 import { defaultStyles, defaultTitle } from "../constants";
-import { clone } from "../utils/clone";
+import { clone } from "../core/utils/clone";
 
 const defaultState = {
   rowState: {},

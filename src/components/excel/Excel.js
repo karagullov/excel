@@ -1,8 +1,8 @@
-import { $ } from "../../core/dom";
-import { Emitter } from "../../core/Emitter";
-import { StoreSubscriber } from "../../core/StoreSubscriber";
+import { $ } from "../../core/dom/dom";
+import { Emitter } from "../../core/dom/Emitter";
+import { StoreSubscriber } from "../../core/store/StoreSubscriber";
 import { updateOpenedDate } from "../../store/actions";
-import { preventDefault } from "../../utils/preventDefault";
+import { preventDefault } from "../../core/utils/preventDefault";
 
 export class Excel {
   constructor(options) {

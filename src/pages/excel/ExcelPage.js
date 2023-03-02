@@ -3,12 +3,12 @@ import { Formula } from "../../components/formula/Formula";
 import { Header } from "../../components/header/Header";
 import { Table } from "../../components/table/Table";
 import { Toolbar } from "../../components/toolbar/Toolbar";
-import { createStore } from "../../core/createStore";
+import { createStore } from "../../core/store/createStore";
 import { normalizeInitialState } from "../../store/initialState";
 import { rootReducer } from "../../store/rootReducer";
-import { storage } from "../../utils/storage";
-import { debounce } from "../../utils/debaunce";
-import { Page } from "../../core/Page";
+import { storage } from "../../core/utils/storage";
+import { debounce } from "../../core/utils/debaunce";
+import { Page } from "../../core/routes/Page";
 
 function storageName(param) {
   return "excel:" + param;
