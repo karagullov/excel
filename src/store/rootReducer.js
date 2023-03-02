@@ -15,10 +15,9 @@ export function rootReducer(state, action) {
       field = action.data.type === "col" ? "colState" : "rowState";
       return { ...state, [field]: value(state, field, action) };
     case CHANGE_TEXT:
-      field = "dataState";
       return {
         ...state,
-        currentText: action.data.text,
+        currentText: action.data.value,
         [field]: value(state, field, action),
       };
     case CHANGE_STYLES:
